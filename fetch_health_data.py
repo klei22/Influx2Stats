@@ -61,6 +61,9 @@ def main():
     # Ensure all required columns exist and fill missing values with NaN
     df = df.reindex(columns=["hour", "minute", "second", "bpm", "movement", "pi", "spo2"], fill_value=float('nan'))
 
+    # Drop rows where any of bpm, movement, pi, or spo2 is NaN
+    df = df.dropna(subset=["bpm", "movement", "pi", "spo2"])
+
     # Save DataFrame to CSV
     if not df.empty:
         df.to_csv(args.output, index=False)
